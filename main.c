@@ -1,5 +1,8 @@
+#include <ctype.h>
 #include <stdio.h>
+#include <string.h>
 
+FILE *fptr;
 
 void showEntries(void);
 
@@ -39,7 +42,14 @@ void showEntries(void) {
 }
 
 void addEntry(void) {
+    printf("Title?\n");
+    char title[105] = "";
 
+    scanf(" %99s", title);
+    strcat(title, ".txt");
+
+    fptr = fopen(title, "w");
+    fclose(fptr);
 }
 
 void deleteEntry(void) {
