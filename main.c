@@ -1,5 +1,6 @@
-#include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
 #include <string.h>
 
 FILE *fptr;
@@ -38,7 +39,25 @@ int main() {
 }
 
 void showEntries(void) {
+    printf("All Entries: \n");
 
+    DIR *d = opendir(".");
+    struct dirent *entry;
+
+    if (d) {
+        while ((entry = readdir(d))) {
+            int len = strlen(entry->d_name);
+
+            if (len > 4 && strcmp(entry->d_name + len - 4, ".txt") == 0) {
+
+                entry->d_name[len - 4] = '\0';
+
+                puts(entry->d_name);
+            }
+        }
+        closedir(d);
+    }
+    main();
 }
 
 void addEntry(void) {
@@ -50,6 +69,7 @@ void addEntry(void) {
 
     fptr = fopen(title, "w");
     fclose(fptr);
+    main();
 }
 
 void deleteEntry(void) {
@@ -62,4 +82,5 @@ void deleteEntry(void) {
     fptr = fopen(title, "w");
     remove(title);
     fclose(fptr);
+    main();
 }
