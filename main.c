@@ -53,5 +53,13 @@ void addEntry(void) {
 }
 
 void deleteEntry(void) {
+    printf("What do you want to delete? \n");
+    char title[105] = "";
 
+    scanf(" %99s", title);
+    strcat(title, ".txt");
+
+    fptr = fopen(title, "w");
+    remove(title);
+    fclose(fptr);
 }
